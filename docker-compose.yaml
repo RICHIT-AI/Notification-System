@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  notificationHub:
+    container_name: NotificationsHub
+    build: ./notification
+    user: "1000:1201"
+    ports:
+      - "50051:50051"
+    environment:
+      REDIS_URL: "redis://redis:6379"
+      REDIS_RESULT_URL: "redis://redis:6379"
+      REDIS_HOST: "redis" #"redis://redis:6379"
+      REDIS_PORT: 6379
+    volumes:
+      - ./notification:/src/notificationHub
+    working_dir: /src/notificationHub
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        go run server/main.go
+
+  NotificationHubRedis:
+    container_name: NotificationHubRedis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+networks:
+  default:
+    external:
+      name: datos-capital-net

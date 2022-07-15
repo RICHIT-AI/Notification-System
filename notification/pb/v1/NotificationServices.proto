@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package notificationSystem;
+
+option go_package = "github.com/richit-ai/notification-system/pb/notification_v1";
+
+// The notification service definition.
+service NotificationService {
+  // Sends a notification
+  rpc SendNotification (SendNotificationRequest) returns (SendNotificationResponse) {}
+
+  // Gets user notifications
+  rpc GetUserNotifications (GetUserNotificationsRequest) returns (GetUserNotificationsResponse) {}
+}
+
+message Notification {
+  string id = 1;
+  string userId = 2;
+  string service = 3;
+  string type = 4;
+  string createdAt = 5;
+  string message = 6;
+  bool unread = 7;
+}
+
+message GetUserNotificationsRequest {
+  string userId = 1;
+}
+
+message GetUserNotificationsResponse {
+  repeated Notification Notifications = 1;
+}
+
+message SendNotificationRequest {
+  Notification Notification = 1;
+}
+
+message SendNotificationResponse {
+
+}
+
+
