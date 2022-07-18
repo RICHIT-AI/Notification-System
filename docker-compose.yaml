@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  notificationHub:
+  notification_hub:
     container_name: NotificationsHub
     build: ./notification
     user: "1000:1201"
@@ -20,7 +20,7 @@ services:
       - |
         go run server/main.go
 
-  NotificationHubRedis:
+  notification_hub_redis:
     container_name: NotificationHubRedis
     image: redis:latest
     ports:
